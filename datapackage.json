@@ -39,11 +39,23 @@
         }, {
           "name": "Measure Type",
           "type": "string",
-          "dimension": true
+          "dimension": true,
+          "constraints": {
+			      "enum": [
+		          "Number",
+		          "Crude Rate (per 100,000)", 	
+		          "AAMR (per 100,000)"
+		        ]
+			    }
         }, {
           "name": "Variable",
           "type": "string",
-          "dimension": true
+          "dimension": true, 
+          "constraints": {
+		        "enum": [
+              "Drug Induced Deaths"
+            ]
+			    }
         }, {
           "name": "Value",
           "type": "number",
@@ -56,7 +68,7 @@
   "ckan_extras": {
     "full_description": {
       "ckan_name": "Full Description",
-      "value": "Deaths in which drugs may have been a contributing but not primary cause are not included. The age-adjusted mortality rate (AAMR) controls for the impact of different age structures in order to better evaluate risk levels that are independent of the age composition of the population. Connecticut Department of Public Health collects data annually. CTdata.org carries three year aggregations of annual data.",
+      "value": "Deaths in which drugs may have been a contributing but not primary cause are not included. The age-adjusted mortality rate (AAMR) controls for the impact of different age structures in order to better evaluate risk levels that are independent of the age composition of the population. Connecticut Department of Public Health collects data annually. CTdata.org carries five year aggregations of annual data.",
       "type": "string"
     },
     "suppression": {
@@ -71,12 +83,12 @@
     },
     "socrata": {
       "ckan_name": "Socrata",
-      "value": "False",,
+      "value": "False",
       "type": "string"
     },
     "socrata_url": {
       "ckan_name": "Socrata Dataset URL",
-      "value": "",,
+      "value": "",
       "type": "string"
     },
     "domain": {
@@ -89,6 +101,16 @@
       "value": "Mortality",
       "type": "string"
     },
+    "numerator": {
+      "ckan_name": "Numerator",
+      "value": "For Crude Rate, number of drug induced deaths, as reported by source. For AAMR, calculations are provided by Publisher and are more complex.",
+      "type": "string"
+    },
+    "denominator": {
+      "ckan_name": "Denominator",
+      "value": "For Crude Rate, total population. For AAMR, calculations are provided by Publisher and are more complex.",
+      "type": "string"
+    },    
     "geography": {
       "ckan_name": "Geography",
       "value": "Town",
@@ -102,7 +124,7 @@
     },
     "years_in_catalog": {
       "ckan_name": "Years in Catalog",
-      "value": [],
+      "value": ["2006-2010", "2007-2011", "2008-2012"],
       "type": "array"
     },
     "latest_year": {
@@ -123,11 +145,76 @@
         "Percent": "%"
       }
     },
-    "default": {}
+    "expected_number_of_geographies": {
+		  "ckan_name": "Expected Number of Unique Geographies",
+		  "value": 170,
+		  "type": "string"
+		},  
+    "default": {      
+      "ckan_name": "Default",
+			"value": {
+			  "Town": "Connecticut", 
+		 		"Year": ["2008-2012"],
+				"Measure Type": "Number",
+		 		"Variable": "Drug Induced Deaths"
+			},
+		  	"type": "object"
+    }  
   },
-  "spot_checks": [],
+  "spot_checks": [
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Andover",
+        "Year": "2007-2011",
+		 		"Variable": "Drug Induced Deaths",
+        "Measure Type": "AAMR (per 100,000)"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "float",
+        "value": -6666
+      } 
+    },    
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Danbury",
+        "Year": "2006-2010",
+		 		"Variable": "Drug Induced Deaths",
+        "Measure Type": "Crude Rate (per 100,000)"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "float",
+        "value": 8.82
+      } 
+    }, 
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Scotland",
+        "Year": "2008-2012",
+		 		"Variable": "Drug Induced Deaths",
+        "Measure Type": "Number"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": -6666
+      } 
+    }
+  ],
   "dimension_groups": [
-    {"Measure Type": []},
-    {"Variable": []}
+    {
+      "Measure Type": [
+        "Number",
+		    "Crude Rate (per 100,000)", 	
+		    "AAMR (per 100,000)"
+		  ],
+      "Variable": [
+        "Drug Induced Deaths"
+      ]
+    }
   ]
 }
