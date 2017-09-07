@@ -49,7 +49,7 @@ for (i in 1:length(dfs)) {
   #setup columns and colnames
   current_geog <- current_geog[,1:4]
   colnames(current_geog) <- current_geog[2,]
-  #Only grab suicide rows
+  #Only grab "drug-induced" rows
   codes <- c("Drug-induced")
   current_geog <- current_geog[grepl(codes, current_geog$`Cause of Death`),]
   #Assign geog name and year based on DF name
