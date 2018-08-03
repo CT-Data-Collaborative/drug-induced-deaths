@@ -1,10 +1,8 @@
 Drug Induced Deaths
 
-[![Build Status](https://travis-ci.org/CT-Data-Collaborative/drug-induced-deaths.svg?branch=master)](https://travis-ci.org/CT-Data-Collaborative/drug-induced-deaths)
-
 Drug Induced Death reports the number and rate of drug-induced deaths.
 
-Data Source: <http://www.ct.gov/dph/cwp/view.asp?a=3132&q=521462>
+Data Source: <https://portal.ct.gov/DPH/Health-Information-Systems--Reporting/Mortality/Mortality-Tables--2000-to-2014-with-74-Cause-of-Death-Codes>
 
 ## License MIT
 
