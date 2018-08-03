@@ -43,7 +43,7 @@
           "constraints": {
 			      "enum": [
 		          "Number",
-		          "Rate (per 10,000)"
+		          "Rate (per 100,000)"
 		        ]
 			    }
         }, {
@@ -52,7 +52,7 @@
           "dimension": true, 
           "constraints": {
 		        "enum": [
-              "Liquor Law Arrests"
+              "Drug Induced Deaths"
             ]
 			    }
         }, {
@@ -123,7 +123,7 @@
     },
     "frequency": {
       "ckan_name": "Frequency",
-      "value": "Annual",
+      "value": "Other",
       "type": "string"
     },
     "years_in_catalog": {
